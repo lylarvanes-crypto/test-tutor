@@ -3,24 +3,325 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CIE IGCSE Biology</title>
+    <title>Lyla Tutor — Biology first</title>
     <style>
-      body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.5; }
-      .card { max-width: 720px; padding: 24px; border: 1px solid #ddd; border-radius: 12px; }
-      button { padding: 10px 14px; border-radius: 10px; border: 1px solid #ccc; cursor: pointer; }
+      :root{
+        --bg0:#070A12;
+        --bg1:#0B1022;
+        --card:rgba(255,255,255,.06);
+        --card2:rgba(255,255,255,.10);
+        --txt:rgba(255,255,255,.92);
+        --muted:rgba(255,255,255,.68);
+        --muted2:rgba(255,255,255,.55);
+        --line:rgba(255,255,255,.14);
+        --shadow: 0 20px 60px rgba(0,0,0,.55);
+        --r: 20px;
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        color:var(--txt);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+        background:
+          radial-gradient(1200px 700px at 15% 10%, rgba(123,92,255,.35), transparent 60%),
+          radial-gradient(900px 600px at 85% 20%, rgba(0,200,255,.22), transparent 55%),
+          radial-gradient(900px 700px at 55% 90%, rgba(0,255,160,.14), transparent 60%),
+          linear-gradient(180deg, var(--bg0), var(--bg1));
+        overflow-x:hidden;
+      }
+
+      .wrap{max-width:1120px; margin:0 auto; padding:28px 18px 70px}
+      .topbar{
+        display:flex; align-items:center; justify-content:space-between;
+        gap:16px; padding:10px 12px; border:1px solid var(--line);
+        background: rgba(255,255,255,.04);
+        border-radius: 999px;
+        backdrop-filter: blur(10px);
+      }
+      .brand{display:flex; align-items:center; gap:10px}
+      .logo{
+        width:34px; height:34px; border-radius:12px;
+        background: linear-gradient(135deg, rgba(123,92,255,.9), rgba(0,200,255,.75));
+        box-shadow: 0 10px 30px rgba(123,92,255,.25);
+        display:grid; place-items:center; font-weight:800;
+      }
+      .brand span{font-weight:700; letter-spacing:.2px}
+      .pill{
+        display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+        color:var(--muted);
+        font-size:13px;
+      }
+      .chip{
+        border:1px solid var(--line);
+        background: rgba(255,255,255,.03);
+        padding:6px 10px;
+        border-radius:999px;
+      }
+
+      .hero{
+        margin-top:26px;
+        display:grid;
+        grid-template-columns: 1.2fr .8fr;
+        gap:18px;
+        align-items:stretch;
+      }
+      @media (max-width: 920px){
+        .hero{grid-template-columns:1fr}
+      }
+
+      .panel{
+        border:1px solid var(--line);
+        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        border-radius: var(--r);
+        box-shadow: var(--shadow);
+        padding:22px;
+        position:relative;
+        overflow:hidden;
+      }
+      .panel:before{
+        content:"";
+        position:absolute;
+        inset:-2px;
+        background:
+          radial-gradient(450px 220px at 20% 0%, rgba(123,92,255,.35), transparent 60%),
+          radial-gradient(380px 260px at 100% 30%, rgba(0,200,255,.22), transparent 55%);
+        pointer-events:none;
+        opacity:.65;
+      }
+      .panel > *{position:relative; z-index:1}
+
+      h1{
+        margin:0 0 8px;
+        font-size: clamp(30px, 4vw, 48px);
+        line-height:1.05;
+        letter-spacing:-.6px;
+      }
+      .sub{
+        margin:0 0 18px;
+        color:var(--muted);
+        font-size: 15px;
+        max-width: 62ch;
+      }
+
+      .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+      .btn{
+        appearance:none;
+        border:1px solid var(--line);
+        background: rgba(255,255,255,.04);
+        color:var(--txt);
+        padding:10px 14px;
+        border-radius: 12px;
+        cursor:pointer;
+        font-weight:650;
+        text-decoration:none;
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      }
+      .btn:hover{background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.22)}
+      .btn:active{transform: translateY(1px)}
+      .btn.primary{
+        border-color: rgba(123,92,255,.45);
+        background: linear-gradient(135deg, rgba(123,92,255,.55), rgba(0,200,255,.24));
+      }
+      .btn.primary:hover{border-color: rgba(123,92,255,.7)}
+      .icon{
+        width:22px; height:22px; border-radius:8px;
+        background: rgba(255,255,255,.07);
+        display:grid; place-items:center;
+        font-size:13px;
+      }
+
+      .grid{
+        display:grid;
+        grid-template-columns: 1fr;
+        gap:12px;
+      }
+      .card{
+        border:1px solid var(--line);
+        background: rgba(255,255,255,.04);
+        border-radius: 16px;
+        padding:14px 14px 12px;
+        transition: background .15s ease, border-color .15s ease, transform .08s ease;
+      }
+      .card:hover{background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.22)}
+      .card:active{transform: translateY(1px)}
+      .card a{color:inherit; text-decoration:none; display:block}
+      .kicker{display:flex; align-items:center; justify-content:space-between; gap:10px}
+      .title{font-weight:750; letter-spacing:.2px}
+      .meta{color:var(--muted2); font-size:13px}
+      .desc{margin:8px 0 0; color:var(--muted); font-size:14px; line-height:1.35}
+
+      .two{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap:12px;
+        margin-top:14px;
+      }
+      @media (max-width: 920px){
+        .two{grid-template-columns:1fr}
+      }
+
+      .mini{
+        border:1px solid var(--line);
+        background: rgba(255,255,255,.03);
+        border-radius: 16px;
+        padding:14px;
+      }
+      .mini h3{margin:0 0 8px; font-size:14px; color:var(--muted)}
+      .mini ul{margin:0; padding-left:18px; color:var(--muted); font-size:14px}
+      .mini li{margin:6px 0}
+      .soon{opacity:.7}
+      .badge{
+        font-size:12px;
+        color:rgba(255,255,255,.75);
+        border:1px solid var(--line);
+        padding:4px 10px;
+        border-radius:999px;
+        background: rgba(255,255,255,.03);
+      }
+
+      .footer{
+        margin-top:18px;
+        color:var(--muted2);
+        font-size:12px;
+        display:flex;
+        justify-content:space-between;
+        flex-wrap:wrap;
+        gap:10px;
+      }
+      .footer a{color:rgba(255,255,255,.7)}
+      .hint{color:rgba(255,255,255,.6)}
+      code{color:rgba(255,255,255,.85)}
     </style>
   </head>
   <body>
-    <div class="card">
-      <h1>CIE IGCSE Biology</h1>
-      <p>Repo is working. Next: add topics + quizzes.</p>
-      <button id="btn">Click me</button>
-      <p id="out"></p>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo">L</div>
+          <span>lyla-tutor</span>
+        </div>
+        <div class="pill">
+          <span class="chip">Biology live</span>
+          <span class="chip soon">Psychology soon</span>
+          <span class="chip soon">TOK soon</span>
+        </div>
+      </div>
+
+      <div class="hero">
+        <div class="panel">
+          <h1>Interactive notes + quizzes.<br/>Built like a real product.</h1>
+          <p class="sub">
+            Start with Biology. Add Psychology and TOK later without rebuilding anything.
+            Clean structure. Fast pages. No clutter.
+          </p>
+
+          <div class="actions">
+            <a class="btn primary" href="biology/">
+              <span class="icon">🧬</span>
+              Enter Biology
+            </a>
+            <a class="btn" href="biology/igcse/cie/">
+              <span class="icon">📘</span>
+              IGCSE CIE
+            </a>
+            <button class="btn" id="randomBtn" type="button">
+              <span class="icon">🎲</span>
+              Random section
+            </button>
+          </div>
+
+          <div class="two">
+            <div class="mini">
+              <h3>Biology structure</h3>
+              <ul>
+                <li>IGCSE → CIE / Edexcel (International)</li>
+                <li>A Level → CIE / Edexcel IAL</li>
+                <li>IB Biology</li>
+                <li>AP Biology</li>
+              </ul>
+            </div>
+            <div class="mini">
+              <h3>What’s next</h3>
+              <ul>
+                <li>Topic pages (syllabus aligned)</li>
+                <li>Mini quizzes + instant feedback</li>
+                <li>Progress tracking later (optional)</li>
+                <li class="hint">Psychology + TOK will mirror this layout</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="footer">
+            <span class="hint">Tip: bookmark <code>/biology/igcse/cie/</code> for your first build.</span>
+            <span class="badge" id="status">Ready</span>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <a href="biology/">
+              <div class="kicker">
+                <div class="title">Biology</div>
+                <div class="meta">live</div>
+              </div>
+              <p class="desc">Curriculum hub. Fast access to IGCSE, A Level, IB, AP.</p>
+            </a>
+          </div>
+
+          <div class="card soon">
+            <a href="#" onclick="return false;">
+              <div class="kicker">
+                <div class="title">Psychology</div>
+                <div class="meta">coming soon</div>
+              </div>
+              <p class="desc">Same layout: IGCSE / A Level / IB / AP, then topics + quizzes.</p>
+            </a>
+          </div>
+
+          <div class="card soon">
+            <a href="#" onclick="return false;">
+              <div class="kicker">
+                <div class="title">TOK</div>
+                <div class="meta">coming soon</div>
+              </div>
+              <p class="desc">Essay tools, exhibitions, claims/counterclaims, examples.</p>
+            </a>
+          </div>
+
+          <div class="card">
+            <a href="biology/igcse/cie/">
+              <div class="kicker">
+                <div class="title">Start here</div>
+                <div class="meta">IGCSE CIE</div>
+              </div>
+              <p class="desc">First curriculum build. We’ll add the first topic + quiz next.</p>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-      document.getElementById("btn").addEventListener("click", () => {
-        document.getElementById("out").textContent = "Button works ✅";
+      const routes = [
+        "biology/igcse/cie/",
+        "biology/igcse/edexcel/",
+        "biology/alevel/cie/",
+        "biology/alevel/edexcel-ial/",
+        "biology/ib/",
+        "biology/ap/"
+      ];
+
+      const status = document.getElementById("status");
+      const btn = document.getElementById("randomBtn");
+
+      btn.addEventListener("click", () => {
+        const pick = routes[Math.floor(Math.random() * routes.length)];
+        status.textContent = "Opening: " + pick.replace("biology/","").replace(/\/$/,"");
+        window.location.href = pick;
       });
     </script>
   </body>
